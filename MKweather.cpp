@@ -13,9 +13,9 @@ struct weatherData{
     float fallDate;
     float tempAverageIn;
     float tempAverageOut;
-    int humAverageIn;
-    int humAverageOut;
-    int moldIndex;
+    float humAverageIn;
+    float humAverageOut;
+    float moldIndex;
 
     weatherData() : date(""), fallDate(0), tempAverageIn(0), tempAverageOut(0), humAverageIn(0), humAverageOut(0), moldIndex(0) {}
 };
@@ -30,10 +30,9 @@ void swap(weatherData *xp, weatherData *yp){
 
 /*  Sorts humidity inside. */
 void sortHumidityInside(weatherData arr[], int arraySize){
-    int i, j;
-    for (i = 0; i < arraySize - 1; i++)
+    for (int i = 0; i < arraySize - 1; i++)
     {
-        for (j = 0; j < arraySize - i - 1; j++)
+        for (int j = 0; j < arraySize - i - 1; j++)
         {
             if (arr[j].humAverageIn > arr[j + 1].humAverageIn)
             {
@@ -45,10 +44,9 @@ void sortHumidityInside(weatherData arr[], int arraySize){
 
 /*  Sorts humidity outside. */
 void sortHumidityOutside(weatherData arr[], int arraySize){
-    int i, j;
-    for (i = 0; i < arraySize - 1; i++)
+    for (int i = 0; i < arraySize - 1; i++)
     {
-        for (j = 0; j < arraySize - i - 1; j++)
+        for (int j = 0; j < arraySize - i - 1; j++)
         {
             if (arr[j].humAverageOut > arr[j + 1].humAverageOut)
             {
@@ -60,10 +58,9 @@ void sortHumidityOutside(weatherData arr[], int arraySize){
 
 /*  Sorts temperature inside. */
 void sortTempInside(weatherData arr[], int arraySize){
-    int i, j;
-    for (i = 0; i < arraySize - 1; i++)
+    for (int i = 0; i < arraySize - 1; i++)
     {
-        for (j = 0; j < arraySize - i - 1; j++)
+        for (int j = 0; j < arraySize - i - 1; j++)
         {
             if (arr[j].tempAverageIn > arr[j + 1].tempAverageIn)
             {
@@ -75,10 +72,9 @@ void sortTempInside(weatherData arr[], int arraySize){
 
 /*  Sorts temperature outside. */
 void sortTempOutside(weatherData arr[], int arraySize){
-    int i, j;
-    for (i = 0; i < arraySize - 1; i++)
+    for (int i = 0; i < arraySize - 1; i++)
     {
-        for (j = 0; j < arraySize - i - 1; j++)
+        for (int j = 0; j < arraySize - i - 1; j++)
         {
             if (arr[j].tempAverageOut > arr[j + 1].tempAverageOut)
             {
@@ -90,10 +86,9 @@ void sortTempOutside(weatherData arr[], int arraySize){
 
 /*  Sorts mold index on outside data (since we don't do any calculations on mold inside). */
 void sortMoldIndex(weatherData arr[], int arraySize){
-    int i, j;
-    for (i = 0; i < arraySize - 1; i++)
+    for (int i = 0; i < arraySize - 1; i++)
     {
-        for (j = 0; j < arraySize - i - 1; j++)
+        for (int j = 0; j < arraySize - i - 1; j++)
         {
             if (arr[j].moldIndex > arr[j + 1].moldIndex)
             {
@@ -107,75 +102,62 @@ void sortMoldIndex(weatherData arr[], int arraySize){
     Prints the average inside humidity, the first for loop prints the 5 most humid temperatures. The second for loop print the
     5 driest days. I have also added some cout lines in all printing functions to keep my switch cases in main() function more clean */
 void printHumidityInside(weatherData arr[]){
-    int i;
-    cout << "Inside values:" << endl;
-    cout << "The 5 most humid days" << endl;
+    cout << "Inside values:" << "\nThe 5 most humid days" << endl;
     cout << "Date\t\tHumidity" << endl;
-    for (i = 126; i < 131; i++)
+    for (int i = 126; i < 131; i++)
         cout << arr[i].date << "\t" << arr[i].humAverageIn  << endl;
-
     cout << endl;
     cout << "The 5 driest days" << endl;
     cout << "Date\t\tHumidity" << endl;
-    for (i = 1; i < 6; i++)
+    for (int i = 1; i < 6; i++)
         cout << arr[i].date << "\t" << arr[i].humAverageIn  << endl;
         cout << endl;
 }
 
 /*  Same function as above but with average outside humidity.   */
 void printHumidityOutside(weatherData arr[]){
-    int i;
-    cout << "Outside values:" << endl;
-    cout << "The 5 most humid days" << endl;
+    cout << "Outside values:" << "\nThe 5 most humid days" << endl;
     cout << "Date\t\tHumidity" << endl;
-    for (i = 126; i < 131; i++)
+    for (int i = 126; i < 131; i++)
         cout << arr[i].date << "\t" << arr[i].humAverageOut  << endl;
-
     cout << endl;
     cout << "The 5 driest days" << endl;
     cout << "Date\t\tHumidity" << endl;
-    for (i = 1; i < 6; i++)
+    for (int i = 1; i < 6; i++)
         cout << arr[i].date << "\t" << arr[i].humAverageOut  << endl;
         cout << endl;
 }
 
 /*  Prints average inside temperature.   */
 void printTempInside(weatherData arr[], int arraySize){
-    int i;
-    cout << "Inside values:" << endl;
-    cout << "The 5 warmest days" << endl;
+    cout << "Inside values:" << "\nThe 5 warmest days" << endl;
     cout << "Date\t\tTemperature" << endl;
-    for (i = arraySize - 1; i > 125; i--)
+    for (int i = arraySize - 1; i > 125; i--)
         cout << arr[i].date << "\t" << arr[i].tempAverageIn  << endl;
-    
     cout << endl;
     cout << "The 5 coldest days" << endl;
     cout << "Date\t\tTemperature" << endl;
-    for (i = 5; i > 0; i--)
+    for (int i = 5; i > 0; i--)
         cout << arr[i].date << "\t" << arr[i].tempAverageIn << endl;
 }
 
 /*  Prints average outside temperature.   */
 void printTempOutside(weatherData arr[], int arraySize){
-    int i;
-    cout << "Outside values:" << endl;
-    cout << "The 5 warmest days" << endl;
+    cout << "Outside values:" << "\nThe 5 warmest days" << endl;
     cout << "Date\t\tTemperature" << endl;
-    for (i = arraySize - 1; i > 125; i--)
+    for (int i = arraySize - 1; i > 125; i--)
         cout << arr[i].date << "\t" << arr[i].tempAverageOut  << endl;
-    
     cout << endl;
     cout << "The 5 coldest days" << endl;
     cout << "Date\t\tTemperature" << endl;
-    for (i = 5; i > 0; i--)
+    for (int i = 5; i > 0; i--)
         cout << arr[i].date << "\t" << arr[i].tempAverageOut << endl;
 }
 
 /*  Prints mold index outside. */
 void printMoldIndex(weatherData arr[], int arraySize){
-    int i;
-    for (i = arraySize - 1; i > 125; i--)
-        cout << "Moldindex: " << arr[i].moldIndex << "\tDate: " << arr[i].date << "\tTemperature: " << arr[i].tempAverageOut << "\tHumidity: " << arr[i].humAverageOut << endl;
+    for (int i = arraySize - 1; i > 125; i--)
+        cout << "Moldindex is " << arr[i].moldIndex << "\tDate " << arr[i].date << "\tTemperature " << arr[i].tempAverageOut << "\tHumidity " << arr[i].humAverageOut << endl;
 }
 
 /*  Search function using linear search.    */
@@ -233,9 +215,7 @@ void findWinter(weatherData arr[], float temp, int arraySize){
 
 /*  Calculation for the mold index. */
 int moldIndex(float temp, int humidity){
-    //int moldLimit = 78;
-    int moldIndex = 0;
-
+    int moldIndex;
     if (temp < 0)
     {
         moldIndex = 0;
@@ -272,6 +252,7 @@ void printMenu(){
     cout << "" << endl;
 
 }
+
 /*  Driver program.     */
 int main(){
     weatherData weatherDataArray[131]; //Creating an array with an index of 131, this is where the data will be saved later on
@@ -312,14 +293,14 @@ int main(){
                 {
                     //Save temperatures and humidity data from "inne" as floats and ints to calculate later with the inCounter
                     data.tempAverageIn += stof(temperature);
-                    data.humAverageIn += stoi(humidity);
+                    data.humAverageIn += stof(humidity);
                     inCount++;
                 }
                 if (inOut == "Ute") 
                 {
                     //Same here: save temperatures and humidity data from "ute" as floats and ints to calculate later with the outCounter
                     data.tempAverageOut += stof(temperature);
-                    data.humAverageOut += stoi(humidity);
+                    data.humAverageOut += stof(humidity);
                     data.fallDate += stof(temperature);
                     outCount++;
                 }
@@ -424,5 +405,5 @@ int main(){
             break;
         }
     } while (userInput != 0);
-            cout << "Good bye" << endl;
+            cout << "Good bye" << endl; 
 }
