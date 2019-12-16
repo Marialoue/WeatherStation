@@ -157,7 +157,7 @@ void printTempOutside(weatherData arr[], int arraySize){
 /*  Prints mold index outside. */
 void printMoldIndex(weatherData arr[], int arraySize){
     for (int i = arraySize - 1; i > 125; i--)
-        cout << "Moldindex is " << arr[i].moldIndex << "\tDate " << arr[i].date << "\tTemperature " << arr[i].tempAverageOut << "\tHumidity " << arr[i].humAverageOut << endl;
+        cout << "Moldindex is shown om a scale 0-100. Here are the 5 days with most risk for mold: " << arr[i].moldIndex << "\tDate " << arr[i].date << "\tTemperature " << arr[i].tempAverageOut << "\tHumidity " << arr[i].humAverageOut << endl;
 }
 
 /*  Search function using linear search.    */
@@ -220,13 +220,13 @@ int moldIndex(float temp, int humidity){
     {
         moldIndex = 0;
     }
-    if (temp > 15)
+    if (temp >= 15)
     {
         moldIndex = (humidity - 78) / 0.22;
     }
     if (temp > 0 && temp < 15)
     {
-        moldIndex = ((humidity - 78) * (temp / 15)) * 0.22;
+        moldIndex = ((humidity - 78) * (temp / 15)) / 0.22;
     }
     return moldIndex;
 }
