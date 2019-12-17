@@ -99,8 +99,8 @@ void sortMoldIndex(weatherData arr[], int arraySize){
 }
 
 /*  Below here are all the printing functions.    
-    Prints the average inside humidity, the first for loop prints the 5 most humid temperatures. The second for loop print the
-    5 driest days. I have also added some cout lines in all printing functions to keep my switch cases in main() function more clean */
+    Prints the average inside humidity, the first for loop prints the five most humid temperatures. The second for loop print the
+    five driest days. I have also added some cout lines in all printing functions to keep my switch cases in main() more clean */
 void printHumidityInside(weatherData arr[]){
     cout << "Inside values:" << "\nThe 5 most humid days" << endl;
     cout << "Date\t\tHumidity" << endl;
@@ -156,8 +156,9 @@ void printTempOutside(weatherData arr[], int arraySize){
 
 /*  Prints mold index outside. */
 void printMoldIndex(weatherData arr[], int arraySize){
+    cout << "Moldindex is shown om a scale of 0-100. Here are the 5 days with most risk for mold:" << endl;
     for (int i = arraySize - 1; i > 125; i--)
-        cout << "Moldindex is shown om a scale 0-100. Here are the 5 days with most risk for mold: " << arr[i].moldIndex << "\tDate " << arr[i].date << "\tTemperature " << arr[i].tempAverageOut << "\tHumidity " << arr[i].humAverageOut << endl;
+        cout << "Index " << arr[i].moldIndex << "\tDate  " << arr[i].date << "\tTemperature " << arr[i].tempAverageOut << "\tHumidity " << arr[i].humAverageOut << endl;
 }
 
 /*  Search function using linear search.    */
@@ -179,23 +180,29 @@ void searchAll(weatherData arr[], string userSearch, int arraySize){
         }  
 }
 
-/*  Function to find meterological fall, where the temperature during consecutive days have to be lower than 10 degrees and 
-higher than 0 degrees 5 days in a row. */
+/*  Function to find meterological fall, where the temperature during five consecutive days have to be lower than 10 degrees and 
+    higher than 0 degrees. */
 void findFall(weatherData arr[], float temp, int arraySize){
+    bool fall = false;
     for (int i = 0; i < arraySize; i++)
     {
         if ((arr[i].fallDate > 0 && arr[i].fallDate < 10) && (arr[i + 1].fallDate > 0 && arr[i + 1].fallDate < 10) && (arr[i + 2].fallDate > 0 && arr[i + 2].fallDate < 10) && (arr[i + 3].fallDate > 0 && arr[i + 3].fallDate < 10) && (arr[i + 4].fallDate > 0 && arr[i + 4].fallDate < 10))
         {
             if ((arr[i + 1].fallDate < arr[i].fallDate) && (arr[i + 2].fallDate < arr[i + 1].fallDate) && (arr[i + 3].fallDate < arr[i + 2].fallDate) && arr[i + 4].fallDate < arr[i + 3].fallDate)
             {
+                fall = true;
                 cout << "Fall occurred on " << arr[i].date << endl;
                 break;
             }
         }
     }
+    if (fall == false)
+    {
+        cout << "All dates have now been wrongly sorted, fall date can't been shown." << endl;
+    }
 }
 
-/*  Function to find meterological winter, average outside temperature have to be below 0 degress for 5 consecutive days. */
+/*  Function to find meterological winter, average outside temperature have to be below 0 degress for five consecutive days. */
 void findWinter(weatherData arr[], float temp, int arraySize){
     bool findWinter = false;
     for (int i = 0; i < arraySize; i++)
@@ -233,7 +240,7 @@ int moldIndex(float temp, int humidity){
 
 /*  When called, this function will prints the menu.   */
 void printMenu(){
-    cout << "       Hello and welcome to the weather station!       " << endl;
+    cout << "       Hello and welcome to the weather station!      " << endl;
     cout << "******************************************************" << endl;
     cout << "1  Search for any of the many dates available" << endl;
     cout << "" << endl;
@@ -351,7 +358,7 @@ int main(){
             cout << endl;
             break;
 
-        case 2: //To find fall date we have to select this case before case 4 - 8 because all dates are sorted when we read from text file, the other cases sort their data
+        case 2: //To find fall date we have to select this case before case 4 - 8 because all dates are sorted when we first read from text file, the other cases sort their data
             cout << endl;
             findFall(weatherDataArray, weatherDataArray[i].fallDate, arraySize);
             cout << endl;
@@ -393,7 +400,6 @@ int main(){
 
         case 8:
             cout << endl;
-            cout << "Here is the mold index" << endl;
             sortMoldIndex(weatherDataArray, arraySize);
             printMoldIndex(weatherDataArray, arraySize);
             cout << endl;
